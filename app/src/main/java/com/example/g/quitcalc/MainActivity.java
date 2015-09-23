@@ -13,13 +13,14 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-    final String BEGINNING_DATE = "2012/05/29 11:00:00";
+    final String DATETIME_FORMAT = "yyyy/MM/dd HH:mm:ss";
+    final String BEGINNING_DATE  = "2012/05/29 11:00:00";
 
     private void update_result() {
         Calendar cal = Calendar.getInstance();
         long now = cal.getTimeInMillis();
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
         try {
             cal.setTime(format.parse(BEGINNING_DATE));
         } catch (ParseException e) {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }
         long beg = cal.getTimeInMillis();
         int diff = (int)((now - beg) / (1000 * 60 * 60 * 24));
-        Log.i("test", String.valueOf(diff));
+        Log.i("test", String.valueOf(now));
 
         TextView start_date = (TextView)findViewById(R.id.textView);
         start_date.setText("開始日：" + BEGINNING_DATE);
@@ -43,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         update_result();
-        Log.v("test", "onResume");
     }
 
     @Override
