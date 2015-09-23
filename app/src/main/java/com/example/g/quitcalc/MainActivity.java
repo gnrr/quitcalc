@@ -15,11 +15,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     final String BEGINNING_DATE = "2012/05/29 11:00:00";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    private void update_result() {
         Calendar cal = Calendar.getInstance();
         long now = cal.getTimeInMillis();
 
@@ -31,13 +27,26 @@ public class MainActivity extends AppCompatActivity {
         }
         long beg = cal.getTimeInMillis();
         int diff = (int)((now - beg) / (1000 * 60 * 60 * 24));
-        Log.i("diff", String.valueOf(diff));
+        Log.i("test", String.valueOf(diff));
 
         TextView start_date = (TextView)findViewById(R.id.textView);
         start_date.setText("開始日：" + BEGINNING_DATE);
 
         TextView result = (TextView)findViewById(R.id.textView2);
         result.setText(String.valueOf(diff));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        update_result();
+        Log.v("test", "onResume");
     }
 
     @Override
